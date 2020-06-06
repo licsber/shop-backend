@@ -17,7 +17,9 @@ public class UserController {
 
     @RequestMapping("login")
     public Res login(@RequestBody LoginForm form) {
-        if (form.getTel().equals("") || form.getPassword().equals("")) {
+        if (form.getTel().equals("") ||
+                form.getPassword().equals("") ||
+                form.getTel().length() != 11) {
             return Res.builder()
                     .code(400)
                     .message("用户输入不合法")
