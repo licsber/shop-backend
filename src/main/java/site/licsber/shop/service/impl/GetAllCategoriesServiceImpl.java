@@ -25,7 +25,7 @@ public class GetAllCategoriesServiceImpl implements GetAllCategoriesService {
         List<ItemCategory> categories = categoryRepository.findAll();
         if (categories != null) {
             res.setCode(200);
-            res.setMsg("查询成功");
+            res.setMsg("查询所有类别成功");
             res.setData(categories);
         }
         return res;

@@ -8,7 +8,7 @@ import site.licsber.shop.model.form.LoginForm;
 import site.licsber.shop.model.form.LoginFormRes;
 import site.licsber.shop.repository.UserRepository;
 import site.licsber.shop.service.LoginService;
-import site.licsber.shop.utils.Token;
+import site.licsber.shop.utils.TokenUtils;
 
 import java.util.Date;
 
@@ -37,7 +37,7 @@ public class LoginServiceImpl implements LoginService {
             res.setMsg("登陆成功");
             res.setData(new LoginFormRes(user.getNick(), user.getToken(), user.getLastLogin()));
 
-            user.setToken(Token.genToken());
+            user.setToken(TokenUtils.genToken());
             user.setLastLogin(new Date().getTime());
             userRepository.save(user);
         } else {

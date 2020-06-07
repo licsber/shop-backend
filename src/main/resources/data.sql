@@ -27,10 +27,10 @@ values ('电子资料'),
 
 insert into item (info, origin_price, postage, price, primary_img,
                   state, title, subtitle, type, category_id, user_id, star)
-values ('自用 非全新 \n不讲价 诚信买家来 !()[https://static.licsber.site/shop/img/01.jpg]',
+values ('自用 非全新 \n不讲价 诚信买家来 ![](https://static.licsber.site/shop/img/01.jpg)',
         10000, 0, 100, 'https://static.licsber.site/shop/img/01.jpg', 1, '风力发电机',
         '来自江苏盐城', 0, 13, 1, 100),
-       ('复习资料 !()[https://static.licsber.site/shop/img/02.png]', 999, 0, 99,
+       ('复习资料 ![](https://static.licsber.site/shop/img/02.png)', 999, 0, 99,
         'https://static.licsber.site/shop/img/02.png', 1, 'Web大作业指导书',
         '程老师出品 必属精品', 1, 1, 1, 888),
        ('T恤', 10000, 0, 1000, 'https://static.licsber.site/shop/img/03.jpg', 1, '男士T恤',
