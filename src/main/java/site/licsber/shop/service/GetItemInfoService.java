@@ -4,6 +4,6 @@ import site.licsber.shop.model.Res;
 
 public interface GetItemInfoService {
 
-    public Res getItemInfo();
+    public Res getItemInfo(Integer id);
 
 }

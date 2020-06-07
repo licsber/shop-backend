@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import site.licsber.shop.model.entity.Item;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Integer> {
@@ -14,6 +15,6 @@ public interface ItemRepository extends CrudRepository<Item, Integer> {
 
     List<Item> findAllByState(Integer state);
 
-
+    Optional<Item> findById(Integer id);
 
 }

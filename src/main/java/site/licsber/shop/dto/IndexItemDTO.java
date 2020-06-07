@@ -3,11 +3,10 @@ package site.licsber.shop.dto;
 import lombok.Data;
 import site.licsber.shop.model.entity.ItemCategory;
 
-import javax.persistence.ManyToOne;
 import java.math.BigInteger;
 
 @Data
-public class IndexItem {
+public class IndexItemDTO {
 
     private Integer id;
 
@@ -22,7 +21,6 @@ public class IndexItem {
     // 0-实物商品 1-电子商品
     private Integer type;
 
-    @ManyToOne
     private ItemCategory category;
 
 }

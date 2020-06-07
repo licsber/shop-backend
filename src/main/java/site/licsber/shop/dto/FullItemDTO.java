@@ -1,17 +1,15 @@
-package site.licsber.shop.model.entity;
+package site.licsber.shop.dto;
 
 import lombok.Data;
+import site.licsber.shop.model.entity.ItemCategory;
+import site.licsber.shop.model.entity.ItemImages;
 
-import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.List;
 
 @Data
-@Entity
-public class Item {
+public class FullItemDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String title;
@@ -23,7 +21,6 @@ public class Item {
     private BigInteger postage;
     private String primaryImg;
 
-    @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)
     private List<ItemImages> imgUrls;
     private String info;
 
@@ -33,11 +30,9 @@ public class Item {
     // 0-未发布 1-正常上架 2-已卖出
     private Integer state;
 
-    @ManyToOne
     private ItemCategory category;
 
-    @ManyToOne
-    private User user;
+    private SellerInfoDTO user;
 
     private Integer star;
 

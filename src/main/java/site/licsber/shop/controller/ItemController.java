@@ -1,6 +1,7 @@
 package site.licsber.shop.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import site.licsber.shop.model.Res;
 import site.licsber.shop.service.impl.GetIndexIndexItemsServiceImpl;
 import site.licsber.shop.service.impl.GetItemInfoServiceImpl;
@@ -22,9 +23,9 @@ public class ItemController {
         return getItemsService.getItems();
     }
 
-    @GetMapping("/item")
-    public Res getItemInfo() {
-        return getItemInfoService.getItemInfo();
+    @GetMapping("/item/{id}")
+    public Res getItemInfo(@PathVariable("id") Integer id) {
+        return getItemInfoService.getItemInfo(id);
     }
 
 }
