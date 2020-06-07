@@ -31,10 +31,10 @@ public class LoginServiceImpl implements LoginService {
         User user = userRepository.findByTel(form.getTel());
         if (user == null) {
             res.setCode(400);
-            res.setMessage("用户名不存在");
+            res.setMsg("用户名不存在");
         } else if (form.getPassword().equals(user.getPassword())) {
             res.setCode(200);
-            res.setMessage("登陆成功");
+            res.setMsg("登陆成功");
             res.setData(new LoginFormRes(user.getNick(), user.getToken(), user.getLastLogin()));
 
             user.setToken(Token.genToken());
@@ -42,7 +42,7 @@ public class LoginServiceImpl implements LoginService {
             userRepository.save(user);
         } else {
             res.setCode(400);
-            res.setMessage("密码不正确");
+            res.setMsg("密码不正确");
         }
 
         return res;

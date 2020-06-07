@@ -12,4 +12,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Override
     <S extends User> S save(S s);
 
+    User findByToken(String token);
+
 }

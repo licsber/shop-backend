@@ -22,7 +22,7 @@ public class UserController {
                 form.getTel().length() != 11) {
             return Res.builder()
                     .code(400)
-                    .message("用户输入不合法")
+                    .msg("用户输入不合法")
                     .build();
         }
         return loginService.login(form);

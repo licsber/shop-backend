@@ -13,7 +13,7 @@ public class Res {
 
     private int code;
 
-    private String message;
+    private String msg;
 
     private Object data;
 
