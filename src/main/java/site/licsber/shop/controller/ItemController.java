@@ -3,9 +3,11 @@ package site.licsber.shop.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.licsber.shop.model.Res;
+import site.licsber.shop.model.form.ItemAddForm;
 import site.licsber.shop.service.impl.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,17 +20,26 @@ public class ItemController {
     final private GetAllCategoriesServiceImpl getAllCategoriesService;
     final private GetItemsByCategoryServiceImpl getItemsByCategoryService;
     final private SingleImgUploadServiceImpl singleImgUploadService;
+    final private ItemAddServiceImpl itemAddService;
 
     public ItemController(GetIndexIndexItemsServiceImpl getItemsService,
                           GetItemInfoServiceImpl getItemInfoService,
                           GetAllCategoriesServiceImpl getAllCategoriesService,
                           GetItemsByCategoryServiceImpl getItemsByCategoryService,
-                          SingleImgUploadServiceImpl singleImgUploadService) {
+                          SingleImgUploadServiceImpl singleImgUploadService,
+                          ItemAddServiceImpl itemAddService) {
         this.getItemsService = getItemsService;
         this.getItemInfoService = getItemInfoService;
         this.getAllCategoriesService = getAllCategoriesService;
         this.getItemsByCategoryService = getItemsByCategoryService;
         this.singleImgUploadService = singleImgUploadService;
+        this.itemAddService = itemAddService;
+    }
+
+    @PostMapping("/itemAdd")
+    public Res addItem(@RequestBody ItemAddForm form) {
+        System.out.println(form);
+        return itemAddService.addItem(form);
     }
 
     @PostMapping("/imgUpload")
