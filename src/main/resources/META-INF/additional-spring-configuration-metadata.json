@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "config.imgUploadPath",
+      "type": "java.lang.String",
+      "description": "用户图片上传路径."
+    }
+  ]
+}

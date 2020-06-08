@@ -2,11 +2,13 @@ package site.licsber.shop.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.licsber.shop.model.Res;
-import site.licsber.shop.service.impl.GetAllCategoriesServiceImpl;
-import site.licsber.shop.service.impl.GetIndexIndexItemsServiceImpl;
-import site.licsber.shop.service.impl.GetItemInfoServiceImpl;
-import site.licsber.shop.service.impl.GetItemsByCategoryServiceImpl;
+import site.licsber.shop.service.impl.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @V1RestController
 public class ItemController {
@@ -15,15 +17,34 @@ public class ItemController {
     final private GetItemInfoServiceImpl getItemInfoService;
     final private GetAllCategoriesServiceImpl getAllCategoriesService;
     final private GetItemsByCategoryServiceImpl getItemsByCategoryService;
+    final private SingleImgUploadServiceImpl singleImgUploadService;
 
     public ItemController(GetIndexIndexItemsServiceImpl getItemsService,
                           GetItemInfoServiceImpl getItemInfoService,
                           GetAllCategoriesServiceImpl getAllCategoriesService,
-                          GetItemsByCategoryServiceImpl getItemsByCategoryService) {
+                          GetItemsByCategoryServiceImpl getItemsByCategoryService,
+                          SingleImgUploadServiceImpl singleImgUploadService) {
         this.getItemsService = getItemsService;
         this.getItemInfoService = getItemInfoService;
         this.getAllCategoriesService = getAllCategoriesService;
         this.getItemsByCategoryService = getItemsByCategoryService;
+        this.singleImgUploadService = singleImgUploadService;
+    }
+
+    @PostMapping("/imgUpload")
+    public Res uploadImg(HttpServletRequest request) {
+        Res res = new Res(400, "请求或文件格式不正确", null);
+        if (request instanceof MultipartHttpServletRequest) {
+            MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
+            MultipartFile file = req.getFile("file");
+            if (file != null) {
+                String host = req.getRequestURL()
+                        .substring(0, req.getRequestURL().length() -
+                                req.getRequestURI().length() + 1);
+                return singleImgUploadService.saveImg(file, host);
+            }
+        }
+        return res;
     }
 
     @GetMapping("/indexItem")
