@@ -4,7 +4,7 @@ import lombok.Data;
 import site.licsber.shop.model.entity.ItemCategory;
 import site.licsber.shop.model.entity.ItemImages;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -14,11 +14,11 @@ public class FullItemDTO {
 
     private String title;
     private String subtitle;
-    private BigInteger price;
-    private BigInteger originPrice;
+    private BigDecimal price;
+    private BigDecimal originPrice;
 
     // 邮费
-    private BigInteger postage;
+    private BigDecimal postage;
     private String primaryImg;
 
     private List<ItemImages> imgUrls;

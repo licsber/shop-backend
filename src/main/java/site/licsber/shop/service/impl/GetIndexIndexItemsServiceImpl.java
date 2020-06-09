@@ -10,6 +10,7 @@ import site.licsber.shop.service.GetIndexItemsService;
 import site.licsber.shop.utils.DTOMapUtils;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -25,6 +26,7 @@ public class GetIndexIndexItemsServiceImpl implements GetIndexItemsService {
         Res res = Res.builder().code(500).msg("未知错误").build();
         List<Item> items = itemRepository.findAllByState(1);
         if (items != null) {
+            items = items.stream().filter(i -> i.getState() == 1).collect(Collectors.toList());
             List<IndexItemDTO> indexItemDTOS = DTOMapUtils.parseItemsList(items);
             res.setCode(200);
             res.setMsg("获取列表成功");
