@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.licsber.shop.model.Res;
 import site.licsber.shop.model.entity.User;
 import site.licsber.shop.model.form.ItemAddForm;
+import site.licsber.shop.model.form.SubmitCommentForm;
 import site.licsber.shop.service.impl.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +26,8 @@ public class ItemController {
     final private SingleImgUploadServiceImpl singleImgUploadService;
     final private ItemAddServiceImpl itemAddService;
     final private CheckUserTokenServiceImpl checkUserTokenService;
+    final private GetCommentsServiceImpl getCommentsService;
+    final private SubmitCommentServiceImpl submitCommentService;
 
     public ItemController(GetIndexIndexItemsServiceImpl getItemsService,
                           GetItemInfoServiceImpl getItemInfoService,
@@ -32,7 +35,9 @@ public class ItemController {
                           GetItemsByCategoryServiceImpl getItemsByCategoryService,
                           SingleImgUploadServiceImpl singleImgUploadService,
                           ItemAddServiceImpl itemAddService,
-                          CheckUserTokenServiceImpl checkUserTokenService) {
+                          CheckUserTokenServiceImpl checkUserTokenService,
+                          GetCommentsServiceImpl getCommentsService,
+                          SubmitCommentServiceImpl submitCommentService) {
         this.getItemsService = getItemsService;
         this.getItemInfoService = getItemInfoService;
         this.getAllCategoriesService = getAllCategoriesService;
@@ -40,6 +45,23 @@ public class ItemController {
         this.singleImgUploadService = singleImgUploadService;
         this.itemAddService = itemAddService;
         this.checkUserTokenService = checkUserTokenService;
+        this.getCommentsService = getCommentsService;
+        this.submitCommentService = submitCommentService;
+    }
+
+    @PostMapping("/comment")
+    public Res submitComment(@RequestBody SubmitCommentForm submitCommentForm,
+                             HttpServletRequest request) {
+        if ("".equals(submitCommentForm.getMsg())) {
+            return Res.builder().code(400).msg("评论不能为空").build();
+        }
+        submitCommentForm.setUser((User) request.getAttribute("user"));
+        return submitCommentService.submitComment(submitCommentForm);
+    }
+
+    @GetMapping("/comments/{itemId}")
+    public Res getComments(@PathVariable("itemId") Integer itemId) {
+        return getCommentsService.getComments(itemId);
     }
 
     @PostMapping("/itemAdd")
