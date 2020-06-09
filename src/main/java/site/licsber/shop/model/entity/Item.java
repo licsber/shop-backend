@@ -3,7 +3,7 @@ package site.licsber.shop.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -16,11 +16,11 @@ public class Item {
 
     private String title;
     private String subtitle;
-    private BigInteger price;
-    private BigInteger originPrice;
+    private BigDecimal price;
+    private BigDecimal originPrice;
 
     // 邮费
-    private BigInteger postage;
+    private BigDecimal postage;
     private String primaryImg;
 
     @OneToMany(mappedBy = "item", fetch = FetchType.EAGER)

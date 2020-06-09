@@ -6,6 +6,10 @@ insert into user (last_address, mail, nick, password, tel, privilege, like_num,
 VALUES ('南京市', 'silverwings@foxmail.com', 'licsber', '666', '18952188414', 10, 100, 0, '江苏南京', 1590940800000),
        ('徐州市', 'silverwings@foxmail.com', 'liujl', '666', '17351981730', 1, 100, 100, '江苏徐州', 1590940800000);
 
+update user
+set token = 'bcedbf96-0608-4a56-bb87-b0e4178c09cf'
+where nick = 'licsber';
+
 insert into wallet (balance, type, user_id)
 VALUES (100, 10, 1),
        (100, 10, 2);

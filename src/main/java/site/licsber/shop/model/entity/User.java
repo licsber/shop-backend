@@ -37,6 +37,7 @@ public class User {
     @JsonIgnore
     private Integer privilege;
 
+    @Column(unique = true)
     @JsonIgnore
     private String token;
 

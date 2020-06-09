@@ -1,19 +1,21 @@
 package site.licsber.shop.model.form;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import site.licsber.shop.model.entity.User;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 @Data
 public class ItemAddForm {
 
     private String title;
     private String subtitle;
-    private BigInteger price;
-    private BigInteger originPrice;
+    private BigDecimal price;
+    private BigDecimal originPrice;
 
     // 邮费
-    private BigInteger postage;
+    private BigDecimal postage;
     private String primaryImg;
 
     private String[] imgUrls;
@@ -25,5 +27,8 @@ public class ItemAddForm {
     private String categoryName;
 
     private String userToken;
+
+    @JsonIgnore
+    private User user;
 
 }

@@ -1,5 +1,6 @@
 package site.licsber.shop.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.licsber.shop.model.Res;
+import site.licsber.shop.model.entity.User;
 import site.licsber.shop.model.form.ItemAddForm;
 import site.licsber.shop.service.impl.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @V1RestController
 public class ItemController {
 
@@ -21,25 +24,51 @@ public class ItemController {
     final private GetItemsByCategoryServiceImpl getItemsByCategoryService;
     final private SingleImgUploadServiceImpl singleImgUploadService;
     final private ItemAddServiceImpl itemAddService;
+    final private CheckUserTokenServiceImpl checkUserTokenService;
 
     public ItemController(GetIndexIndexItemsServiceImpl getItemsService,
                           GetItemInfoServiceImpl getItemInfoService,
                           GetAllCategoriesServiceImpl getAllCategoriesService,
                           GetItemsByCategoryServiceImpl getItemsByCategoryService,
                           SingleImgUploadServiceImpl singleImgUploadService,
-                          ItemAddServiceImpl itemAddService) {
+                          ItemAddServiceImpl itemAddService,
+                          CheckUserTokenServiceImpl checkUserTokenService) {
         this.getItemsService = getItemsService;
         this.getItemInfoService = getItemInfoService;
         this.getAllCategoriesService = getAllCategoriesService;
         this.getItemsByCategoryService = getItemsByCategoryService;
         this.singleImgUploadService = singleImgUploadService;
         this.itemAddService = itemAddService;
+        this.checkUserTokenService = checkUserTokenService;
     }
 
     @PostMapping("/itemAdd")
     public Res addItem(@RequestBody ItemAddForm form) {
-        System.out.println(form);
-        return itemAddService.addItem(form);
+        log.info(form.toString());
+        Res res = new Res(400, "控制层校验不通过", null);
+        if (form.getUserToken() == null || "".equals(form.getUserToken())) {
+            res.setMsg("非法请求，需附带userToken");
+        } else {
+            User user = checkUserTokenService.valid(form.getUserToken());
+            if (user == null) {
+                res.setCode(401);
+                res.setMsg("用户已在别地登陆");
+            } else if (form.getTitle() == null || "".equals(form.getTitle())) {
+                res.setMsg("商品标题不能为空");
+            } else if (form.getPrimaryImg() == null || "".equals(form.getPrimaryImg())) {
+                res.setMsg("商品主图不能为空");
+            } else if (form.getInfo() == null || "".equals(form.getInfo())) {
+                res.setMsg("商品描述不能为空");
+            } else if (form.getType() == null) {
+                res.setMsg("商品类型不能为空");
+            } else if (form.getCategoryName() == null || "".equals(form.getCategoryName())) {
+                res.setMsg("商品类别不能为空");
+            } else {
+                form.setUser(user);
+                return itemAddService.addItem(form);
+            }
+        }
+        return res;
     }
 
     @PostMapping("/imgUpload")

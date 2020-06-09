@@ -35,9 +35,9 @@ public class LoginServiceImpl implements LoginService {
         } else if (form.getPassword().equals(user.getPassword())) {
             res.setCode(200);
             res.setMsg("登陆成功");
+            user.setToken(TokenUtils.genToken());
             res.setData(new LoginFormRes(user.getNick(), user.getToken(), user.getLastLogin()));
 
-            user.setToken(TokenUtils.genToken());
             user.setLastLogin(new Date().getTime());
             userRepository.save(user);
         } else {
