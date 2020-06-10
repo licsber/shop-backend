@@ -1,10 +1,7 @@
 package site.licsber.shop.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.licsber.shop.model.Res;
@@ -28,6 +25,9 @@ public class ItemController {
     final private CheckUserTokenServiceImpl checkUserTokenService;
     final private GetCommentsServiceImpl getCommentsService;
     final private SubmitCommentServiceImpl submitCommentService;
+    final private GetItemsByUserServiceImpl getItemsByUserService;
+    final private UnPublishItemServiceImpl unPublishItemService;
+    final private RePublishItemServiceImpl rePublishItemService;
 
     public ItemController(GetIndexIndexItemsServiceImpl getItemsService,
                           GetItemInfoServiceImpl getItemInfoService,
@@ -37,7 +37,10 @@ public class ItemController {
                           ItemAddServiceImpl itemAddService,
                           CheckUserTokenServiceImpl checkUserTokenService,
                           GetCommentsServiceImpl getCommentsService,
-                          SubmitCommentServiceImpl submitCommentService) {
+                          SubmitCommentServiceImpl submitCommentService,
+                          GetItemsByUserServiceImpl getItemsByUserService,
+                          UnPublishItemServiceImpl unPublishItemService,
+                          RePublishItemServiceImpl rePublishItemService) {
         this.getItemsService = getItemsService;
         this.getItemInfoService = getItemInfoService;
         this.getAllCategoriesService = getAllCategoriesService;
@@ -47,6 +50,25 @@ public class ItemController {
         this.checkUserTokenService = checkUserTokenService;
         this.getCommentsService = getCommentsService;
         this.submitCommentService = submitCommentService;
+        this.getItemsByUserService = getItemsByUserService;
+        this.unPublishItemService = unPublishItemService;
+        this.rePublishItemService = rePublishItemService;
+    }
+
+    @PutMapping("/rePublishItem/{itemId}")
+    public Res rePublishItem(@PathVariable("itemId") Integer itemId) {
+        return rePublishItemService.rePublishItem(itemId);
+    }
+
+    @PutMapping("/unPublishItem/{itemId}")
+    public Res unPublishItem(@PathVariable("itemId") Integer itemId) {
+        System.out.println(itemId);
+        return unPublishItemService.unPublishItem(itemId);
+    }
+
+    @GetMapping("/userItems")
+    public Res getUserItems(HttpServletRequest request) {
+        return getItemsByUserService.getItemsByUser((User) request.getAttribute("user"));
     }
 
     @PostMapping("/comment")

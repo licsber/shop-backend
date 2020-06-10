@@ -30,8 +30,30 @@ public class Item {
     // 0-实物商品 1-电子商品
     private Integer type;
 
+    public enum type {
+        REAL,
+        VIRTUAL
+    }
+
     // 0-未发布 1-正常上架 2-已卖出
     private Integer state;
+
+    public enum state {
+        UNPUBLISHED(0),
+        NORMAL(1),
+        SOLD_OUT(2),
+        BAN(3);
+
+        private final int num;
+
+        public int getNum() {
+            return num;
+        }
+
+        state(int i) {
+            num = i;
+        }
+    }
 
     @ManyToOne
     private ItemCategory category;

@@ -1,22 +1,27 @@
 package site.licsber.shop.utils;
 
 import org.springframework.beans.BeanUtils;
-import site.licsber.shop.dto.IndexItemDTO;
 import site.licsber.shop.model.entity.Item;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DTOMapUtils {
 
-    public static List<IndexItemDTO> parseItemsList(List<Item> list) {
-        List<IndexItemDTO> indexItemDTOS = new ArrayList<>();
+    public static <T> List<T> parseItemsList(List<Item> list, Class<T> tClass) {
+        List<T> dtos = new ArrayList<>();
         for (Item item : list) {
-            IndexItemDTO indexItemDTO = new IndexItemDTO();
-            BeanUtils.copyProperties(item, indexItemDTO);
-            indexItemDTOS.add(indexItemDTO);
+            T dto = null;
+            try {
+                dto = tClass.getDeclaredConstructor().newInstance();
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                return null;
+            }
+            BeanUtils.copyProperties(item, dto);
+            dtos.add(dto);
         }
-        return indexItemDTOS;
+        return dtos;
     }
 
 }

@@ -27,7 +27,7 @@ public class GetIndexIndexItemsServiceImpl implements GetIndexItemsService {
         List<Item> items = itemRepository.findAllByState(1);
         if (items != null) {
             items = items.stream().filter(i -> i.getState() == 1).collect(Collectors.toList());
-            List<IndexItemDTO> indexItemDTOS = DTOMapUtils.parseItemsList(items);
+            List<IndexItemDTO> indexItemDTOS = DTOMapUtils.parseItemsList(items, IndexItemDTO.class);
             res.setCode(200);
             res.setMsg("获取列表成功");
             res.setData(indexItemDTOS);

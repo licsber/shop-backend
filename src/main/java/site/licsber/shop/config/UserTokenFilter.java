@@ -13,7 +13,10 @@ import java.io.IOException;
 
 @Slf4j
 @WebFilter(filterName = "UserTokenFilter", urlPatterns = {
-        "/api/v1/comment"
+        "/api/v1/comment",
+        "/api/v1/userItems",
+        "/api/v1/unPublishItem",
+        "/api/v1/rePublishItem"
 })
 @Order(1)
 public class UserTokenFilter implements Filter {

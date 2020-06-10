@@ -33,7 +33,7 @@ public class GetItemsByCategoryServiceImpl implements getItemsByCategoryService 
         if (category.isPresent()) {
             List<Item> items = itemRepository.findAllByCategory(category.get());
             if (items != null) {
-                List<IndexItemDTO> indexItemDTOS = DTOMapUtils.parseItemsList(items);
+                List<IndexItemDTO> indexItemDTOS = DTOMapUtils.parseItemsList(items, IndexItemDTO.class);
                 res.setCode(200);
                 res.setMsg("获取" + category.get().getName() + "类别列表成功");
                 res.setData(indexItemDTOS);
