@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import site.licsber.shop.model.Res;
 import site.licsber.shop.model.entity.User;
 import site.licsber.shop.model.form.ItemAddForm;
+import site.licsber.shop.model.form.ItemBuyForm;
 import site.licsber.shop.model.form.SubmitCommentForm;
 import site.licsber.shop.service.impl.*;
 
@@ -21,7 +22,7 @@ public class ItemController {
     final private GetAllCategoriesServiceImpl getAllCategoriesService;
     final private GetItemsByCategoryServiceImpl getItemsByCategoryService;
     final private SingleImgUploadServiceImpl singleImgUploadService;
-    final private ItemAddServiceImpl itemAddService;
+    final private AddItemServiceImpl itemAddService;
     final private CheckUserTokenServiceImpl checkUserTokenService;
     final private GetCommentsServiceImpl getCommentsService;
     final private SubmitCommentServiceImpl submitCommentService;
@@ -29,20 +30,24 @@ public class ItemController {
     final private UnPublishItemServiceImpl unPublishItemService;
     final private RePublishItemServiceImpl rePublishItemService;
     final private DelItemServiceImpl delItemService;
+    final private BuyItemServiceImpl buyItemService;
+    final private DeliveryServiceImpl deliveryService;
 
     public ItemController(GetIndexItemsServiceImpl getItemsService,
                           GetItemInfoServiceImpl getItemInfoService,
                           GetAllCategoriesServiceImpl getAllCategoriesService,
                           GetItemsByCategoryServiceImpl getItemsByCategoryService,
                           SingleImgUploadServiceImpl singleImgUploadService,
-                          ItemAddServiceImpl itemAddService,
+                          AddItemServiceImpl itemAddService,
                           CheckUserTokenServiceImpl checkUserTokenService,
                           GetCommentsServiceImpl getCommentsService,
                           SubmitCommentServiceImpl submitCommentService,
                           GetItemsByUserServiceImpl getItemsByUserService,
                           UnPublishItemServiceImpl unPublishItemService,
                           RePublishItemServiceImpl rePublishItemService,
-                          DelItemServiceImpl delItemService) {
+                          DelItemServiceImpl delItemService,
+                          BuyItemServiceImpl buyItemService,
+                          DeliveryServiceImpl deliveryService) {
         this.getItemsService = getItemsService;
         this.getItemInfoService = getItemInfoService;
         this.getAllCategoriesService = getAllCategoriesService;
@@ -56,7 +61,28 @@ public class ItemController {
         this.unPublishItemService = unPublishItemService;
         this.rePublishItemService = rePublishItemService;
         this.delItemService = delItemService;
+        this.buyItemService = buyItemService;
+        this.deliveryService = deliveryService;
     }
+
+    @PutMapping("/delivery/{itemId}")
+    public Res delivery(@PathVariable("itemId") Integer itemId) {
+        return deliveryService.delivery(itemId);
+    }
+
+    @PostMapping("/buyItem")
+    public Res buyItem(@RequestBody ItemBuyForm form,
+                       HttpServletRequest request) {
+        if (form.getItemId() == 0) {
+            return Res.builder()
+                    .code(400)
+                    .msg("请求参数错误")
+                    .build();
+        }
+        User user = (User) request.getAttribute("user");
+        return buyItemService.buyItem(form.getItemId(), user);
+    }
+
 
     @PutMapping("/delItem/{itemId}")
     public Res delItems(@PathVariable("itemId") Integer itemId) {

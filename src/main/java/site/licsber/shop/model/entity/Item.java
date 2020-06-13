@@ -34,18 +34,29 @@ public class Item {
     private Integer type;
 
     public enum type {
-        REAL,
-        VIRTUAL
+        REAL(0),
+        VIRTUAL(1);
+
+        private final int num;
+
+        public int getNum() {
+            return num;
+        }
+
+        type(int i) {
+            num = i;
+        }
     }
 
-    // 0-未发布 1-正常上架 2-已卖出
+    // 0-未发布 1-正常上架 2-已卖出 3-强制下架 4-完成交易
     private Integer state;
 
     public enum state {
         UNPUBLISHED(0),
         NORMAL(1),
         SOLD_OUT(2),
-        BAN(3);
+        BAN(3),
+        FINISH(4);
 
         private final int num;
 
@@ -65,5 +76,7 @@ public class Item {
     private User user;
 
     private Integer star;
+
+    private String autoDelivery;
 
 }

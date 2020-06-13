@@ -31,4 +31,6 @@ public class ItemAddForm {
     @JsonIgnore
     private User user;
 
+    private String autoDelivery;
+
 }

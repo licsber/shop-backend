@@ -18,6 +18,7 @@ public class Wallet {
 
     private BigInteger balance;
 
+    // 0-禁止支付 1-正常
     private Integer type;
 
 }

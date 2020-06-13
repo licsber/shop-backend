@@ -15,20 +15,19 @@ import site.licsber.shop.repository.ItemRepository;
 import site.licsber.shop.service.ItemAddService;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 @Service
-public class ItemAddServiceImpl implements ItemAddService {
+public class AddItemServiceImpl implements ItemAddService {
 
     final private CategoryRepository categoryRepository;
     final private ItemRepository itemRepository;
     final private ItemImagesRepository itemImagesRepository;
 
-    public ItemAddServiceImpl(CategoryRepository categoryRepository,
+    public AddItemServiceImpl(CategoryRepository categoryRepository,
                               ItemRepository itemRepository,
                               ItemImagesRepository itemImagesRepository) {
         this.categoryRepository = categoryRepository;
@@ -47,6 +46,8 @@ public class ItemAddServiceImpl implements ItemAddService {
             res.setMsg("商品类型不合法");
         } else if (!form.getPrimaryImg().startsWith("http")) {
             res.setMsg("主图地址不合法");
+        } else if (form.getType() == Item.type.VIRTUAL.getNum() && "".equals(form.getAutoDelivery())) {
+            res.setMsg("自动发货信息为空");
         } else {
             if (form.getPrice() == null) {
                 form.setPrice(new BigDecimal("1"));

@@ -60,6 +60,10 @@ values ('自用 非全新 \n不讲价 诚信买家来 下面是自定义图片�
        ('茶几出售', 10000, 0, 1000, 'https://cdn.licsber.site/shop/img/08.jpg', 3, '被BAN的客厅茶几测试',
         '伊拉克成色', 0, 12, 1, 666);
 
+update item
+set auto_delivery = '2333 这里是自动发货内容'
+where id = 2;
+
 insert into item_images (url, item_id)
 values ('https://cdn.licsber.site/shop/img/03-1.jpg', 3),
        ('https://cdn.licsber.site/shop/img/03-2.jpg', 3),

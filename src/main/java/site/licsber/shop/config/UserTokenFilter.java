@@ -16,7 +16,8 @@ import java.io.IOException;
         "/api/v1/comment",
         "/api/v1/userItems",
         "/api/v1/unPublishItem",
-        "/api/v1/rePublishItem"
+        "/api/v1/rePublishItem",
+        "/api/v1/buyItem"
 })
 @Order(1)
 public class UserTokenFilter implements Filter {
