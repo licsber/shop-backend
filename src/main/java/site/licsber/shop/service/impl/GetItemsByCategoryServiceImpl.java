@@ -7,14 +7,14 @@ import site.licsber.shop.model.entity.Item;
 import site.licsber.shop.model.entity.ItemCategory;
 import site.licsber.shop.repository.CategoryRepository;
 import site.licsber.shop.repository.ItemRepository;
-import site.licsber.shop.service.getItemsByCategoryService;
+import site.licsber.shop.service.GetItemsByCategoryService;
 import site.licsber.shop.utils.DTOMapUtils;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GetItemsByCategoryServiceImpl implements getItemsByCategoryService {
+public class GetItemsByCategoryServiceImpl implements GetItemsByCategoryService {
 
     final private ItemRepository itemRepository;
     final private CategoryRepository categoryRepository;

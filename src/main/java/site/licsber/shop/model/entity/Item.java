@@ -14,6 +14,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isDel;
+
     private String title;
     private String subtitle;
     private BigDecimal price;

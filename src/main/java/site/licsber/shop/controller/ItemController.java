@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 @V1RestController
 public class ItemController {
 
-    final private GetIndexIndexItemsServiceImpl getItemsService;
+    final private GetIndexItemsServiceImpl getItemsService;
     final private GetItemInfoServiceImpl getItemInfoService;
     final private GetAllCategoriesServiceImpl getAllCategoriesService;
     final private GetItemsByCategoryServiceImpl getItemsByCategoryService;
@@ -28,8 +28,9 @@ public class ItemController {
     final private GetItemsByUserServiceImpl getItemsByUserService;
     final private UnPublishItemServiceImpl unPublishItemService;
     final private RePublishItemServiceImpl rePublishItemService;
+    final private DelItemServiceImpl delItemService;
 
-    public ItemController(GetIndexIndexItemsServiceImpl getItemsService,
+    public ItemController(GetIndexItemsServiceImpl getItemsService,
                           GetItemInfoServiceImpl getItemInfoService,
                           GetAllCategoriesServiceImpl getAllCategoriesService,
                           GetItemsByCategoryServiceImpl getItemsByCategoryService,
@@ -40,7 +41,8 @@ public class ItemController {
                           SubmitCommentServiceImpl submitCommentService,
                           GetItemsByUserServiceImpl getItemsByUserService,
                           UnPublishItemServiceImpl unPublishItemService,
-                          RePublishItemServiceImpl rePublishItemService) {
+                          RePublishItemServiceImpl rePublishItemService,
+                          DelItemServiceImpl delItemService) {
         this.getItemsService = getItemsService;
         this.getItemInfoService = getItemInfoService;
         this.getAllCategoriesService = getAllCategoriesService;
@@ -53,6 +55,12 @@ public class ItemController {
         this.getItemsByUserService = getItemsByUserService;
         this.unPublishItemService = unPublishItemService;
         this.rePublishItemService = rePublishItemService;
+        this.delItemService = delItemService;
+    }
+
+    @PutMapping("/delItem/{itemId}")
+    public Res delItems(@PathVariable("itemId") Integer itemId) {
+        return delItemService.delItem(itemId);
     }
 
     @PutMapping("/rePublishItem/{itemId}")
@@ -62,7 +70,6 @@ public class ItemController {
 
     @PutMapping("/unPublishItem/{itemId}")
     public Res unPublishItem(@PathVariable("itemId") Integer itemId) {
-        System.out.println(itemId);
         return unPublishItemService.unPublishItem(itemId);
     }
 
