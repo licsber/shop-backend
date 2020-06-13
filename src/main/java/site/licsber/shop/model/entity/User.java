@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @Entity
@@ -35,7 +36,7 @@ public class User {
 
     // 0-被封号 1-普通用户 10-管理员
     @JsonIgnore
-    private Integer privilege;
+    private Integer privilege = 1;
 
     @Column(unique = true)
     @JsonIgnore
@@ -43,7 +44,7 @@ public class User {
 
     @JsonIgnore
     private Long lastLogin;
-    private Long createTime;
+    private Long createTime = new Date().getTime();
 
     private Integer likeNum = 0;
 
