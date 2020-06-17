@@ -5,6 +5,6 @@ import site.licsber.shop.model.Res;
 
 public interface SingleImgUploadService {
 
-    Res saveImg(MultipartFile file, String host);
+    Res saveImg(MultipartFile file);
 
 }

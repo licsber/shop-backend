@@ -4,6 +4,11 @@
       "name": "config.imgUploadPath",
       "type": "java.lang.String",
       "description": "用户图片上传路径."
+    },
+    {
+      "name": "config.host",
+      "type": "java.lang.String",
+      "description": "外部运行的host."
     }
   ]
 }

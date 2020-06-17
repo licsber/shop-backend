@@ -155,10 +155,7 @@ public class ItemController {
             MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
             MultipartFile file = req.getFile("file");
             if (file != null) {
-                String host = req.getRequestURL()
-                        .substring(0, req.getRequestURL().length() -
-                                req.getRequestURI().length() + 1);
-                return singleImgUploadService.saveImg(file, host);
+                return singleImgUploadService.saveImg(file);
             }
         }
         return res;

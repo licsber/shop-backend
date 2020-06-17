@@ -11,4 +11,6 @@ public class CustomConfig {
 
     private String imgUploadPath;
 
+    private String host;
+
 }

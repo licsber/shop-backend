@@ -33,11 +33,6 @@ public class UserTokenFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        if (request.getMethod().equals("OPTIONS")) {
-            filterChain.doFilter(servletRequest, servletResponse);
-            return;
-        }
-
         String token = request.getHeader("userToken");
         if (token != null) {
             log.info(token);

@@ -4,6 +4,7 @@ import org.springframework.core.annotation.Order;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -16,6 +17,7 @@ public class OptionsTokenFilter implements Filter {
                          ServletResponse servletResponse,
                          FilterChain filterChain)
             throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -26,7 +28,11 @@ public class OptionsTokenFilter implements Filter {
                 "Content-Type, x-requested-with, X-Custom-Header," +
                         " Authorization, userToken");
 
-        filterChain.doFilter(servletRequest, servletResponse);
+        if (request.getMethod().equals("OPTIONS")) {
+            response.setStatus(204);
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
     }
 
 }

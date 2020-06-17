@@ -17,6 +17,7 @@ import java.util.Objects;
 public class SingleImgUploadServiceImpl implements SingleImgUploadService {
 
     private final File savePath;
+    private final String host;
 
     public SingleImgUploadServiceImpl(CustomConfig customConfig) {
         savePath = new File(customConfig.getImgUploadPath());
@@ -27,10 +28,11 @@ public class SingleImgUploadServiceImpl implements SingleImgUploadService {
                 System.exit(0);
             }
         }
+        host = customConfig.getHost();
     }
 
     @Override
-    public Res saveImg(MultipartFile file, String host) {
+    public Res saveImg(MultipartFile file) {
         Res res = new Res(400, "文件格式错误", null);
         if (!file.isEmpty()) {
             File f = new File(savePath, TokenUtils.genToken() +

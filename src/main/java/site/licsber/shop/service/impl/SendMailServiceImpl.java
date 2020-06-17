@@ -32,8 +32,8 @@ public class SendMailServiceImpl implements SendMailService {
             mailSender.send(message);
             log.info(to + " 发送成功 " + subject);
             return true;
-        } catch (Exception ignore) {
-            log.info(to + " 发送失败 " + subject);
+        } catch (Exception e) {
+            log.info(to + " 发送失败 " + subject + e.getMessage());
             return false;
         }
     }
