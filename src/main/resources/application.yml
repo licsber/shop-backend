@@ -1,0 +1,75 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: shop
+  datasource:
+    url: jdbc:mysql://localhost:3306/shop?serverTimezone=UTC&characterEncoding=utf-8
+    username: root
+    data: classpath:data.sql
+    initialization-mode: always
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 4MB
+  mail:
+    host: smtp.qq.com
+    username: XXX
+    password: XXX
+logging:
+  level:
+    site.licsber: debug
+server:
+  port: 8888
+  servlet:
+    encoding:
+      force-response: true
+config:
+  imgUploadPath: /Users/licsber/IdeaProjects/shop/img
+  host: http://localhost:8888/
+
+---
+
+spring:
+  profiles: prod
+  application:
+    name: shop
+  datasource:
+    url: jdbc:mysql://localhost:3308/shop?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    initialization-mode: always
+    sql-script-encoding: UTF-8
+    data: classpath:data.sql
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+  servlet:
+    multipart:
+      max-file-size: 4MB
+  mail:
+    host: smtp.qq.com
+    username: XXX
+    password: XXX
+    port: 465
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: true
+logging:
+  level:
+    site.licsber: debug
+server:
+  port: 9999
+  servlet:
+    encoding:
+      force-response: true
+config:
+  imgUploadPath: /home/licsber/img
+  host: https://shop-api.licsber.site/
