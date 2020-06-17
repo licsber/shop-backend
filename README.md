@@ -2,7 +2,11 @@
 
 ## 项目简介
 
-demo网址：shop.licsber.site
+demo网址：https://shop.licsber.site
+
+前端：https://github.com/Licsber/shop-frontend
+
+后端：https://github.com/Licsber/shop-backend
 
 Web课程的大作业，具体要求如下：
 
@@ -28,7 +32,7 @@ Web课程的大作业，具体要求如下：
 
 后端采用SpringBoot+Mysql+Hibernate
 
-前端采用Vue2实现 
+前端采用Vue2实现
 
 用了element-ui（虽然可能有点过时了）
 
